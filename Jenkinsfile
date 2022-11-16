@@ -1,10 +1,10 @@
 pipeline {
-	stages {
-		agent {
-			docker {
-				image 'composer:latest'
-			}
+	agent {
+		docker {
+			image 'composer:latest'
 		}
+	}
+	stages {
 		stage('Build') {
 			steps {
 				sh 'composer install'
@@ -16,14 +16,14 @@ pipeline {
             }
 		}
 	}
+	agent any
 	stages {
-		agent any
 		stage('OWASP DependencyCheck') {
 			steps {
 				dependencyCheck additionalArguments: '--format HTML --format XML --suppression suppression.xml', odcInstallation: 'Default'
 			}
 		}
-	}
+	}	
 	post {
 		success {
 			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
