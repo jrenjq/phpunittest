@@ -21,8 +21,6 @@ pipeline {
                 sh './vendor/bin/phpunit tests'
             }
 		}
-	}
-	stages {
 		stage('OWASP DependencyCheck') {
 			agent any
 			steps {
