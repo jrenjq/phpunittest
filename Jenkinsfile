@@ -1,5 +1,5 @@
 pipeline {
-	agent none
+	agent any
 	stages {
 		stage('Build') {
 			agent {
@@ -30,9 +30,7 @@ pipeline {
 	}	
 	post {
 		success {
-			node('master') {
-				dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-			}
+			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
 		}
 	}
 }
