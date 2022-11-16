@@ -27,12 +27,12 @@ pipeline {
 				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
 			}
 		}
-	}
-	node {
-		post {
-			success {
+	}	
+	post {
+		success {
+			node('posting result') {
 				dependencyCheckPublisher pattern: 'dependency-check-report.xml'
 			}
 		}
-	}	
+	}
 }
