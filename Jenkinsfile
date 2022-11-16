@@ -1,20 +1,12 @@
 pipeline {
-	agent {
-		docker {
-			image 'composer:latest'
-		}
-	}
+	agent any
 	stages {
-		stage('Build') {
+		stage('Checkout SCM') {
 			steps {
-				sh 'composer install'
+				git 'https://github.com/jrenjq/JenkinsDependencyCheckTest.git'
 			}
 		}
-		stage('Test') {
-			steps {
-                sh './vendor/bin/phpunit tests'
-            }
-		}
+
 		stage('OWASP DependencyCheck') {
 			steps {
 				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
