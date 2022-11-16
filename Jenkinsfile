@@ -30,7 +30,7 @@ pipeline {
 	}	
 	post {
 		success {
-			node('posting result') {
+			node('master') {
 				dependencyCheckPublisher pattern: 'dependency-check-report.xml'
 			}
 		}
